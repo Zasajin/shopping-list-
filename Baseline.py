@@ -92,9 +92,24 @@ def adjust_categories():
         elif category_name == 0:
             return
         else:
-            new_priority = int(input('Enter the new priority (has to be non decimal number greater then 0): '))
-            category_priorities(category_name) = new_priority
+            new_priority = int(input('Enter the new priority (1 being highest priority, higher number = lower priority): '))
             if new_priority in current_prioritys:
                 print('Priority already in use, reassigning prioritys.'
                       'Please wait...')
                 reassign_priorities()
+            else:
+                category_priorities(category_name) = new_priority
+                print(f'{category_name} has been assigned the priority {new_priority}')
+                
+def reassign_priorities(category_prioritys, new_priority, category_name):
+    sorted_categories = sorted(category_priorities, key=category_priorities.get)
+
+    for priority in sorted_categories:
+        if category_priority[priority] >= new_priority:
+            category_priority[priority] += 1
+        
+    category_priorities(category_name) = new_priority
+    print(f'{category_name} has been assigned priority {new_priority}')
+    print('/nUpdated Categories:')
+    for categories in category_priorities.items():
+        print(f'{categories}: {priority}')
