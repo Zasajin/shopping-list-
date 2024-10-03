@@ -71,45 +71,51 @@ def adjust_categories():
     else:
         print('Invalid input, please enter one of the given numbers.')
 
-    def rename_categories(category_priorities):
+    def rename_categories(a):
         old_c_name = input('Enter the category you want to rename or 0 to exit: ').strip()
-        if old_c_name not in (category_priorities):
-            print('Category not found.')
-        elif old_c_name == 0:
-            return
-        else:
-            new_c_name = input('Enter the new name: ').strip()
-            category_priorities[new_c_name] = category_priorities.pop(old_c_name)
-            print(f'"{old_c_name}" renamed to "{new_c_name}".')
 
-    def reorganize_priorities(category_priorities):
-
-        current_prioritys = list(category_priorities.values())
-       
-        category_name = input('Enter the catergory of which you would like to change priority or 0 to exit: ')
-        if category_name not in (category_priorities):
-            print('Category not found.')
-        elif category_name == 0:
-            return
-        else:
-            new_priority = int(input('Enter the new priority (1 being highest priority, higher number = lower priority): '))
-            if new_priority in current_prioritys:
-                print('Priority already in use, reassigning prioritys.'
-                      'Please wait...')
-                reassign_priorities()
+        while old_c_name != '0':
+            if old_c_name not in a:
+                print('Category not found.')
             else:
-                category_priorities(category_name) = new_priority
-                print(f'{category_name} has been assigned the priority {new_priority}')
+                new_c_name = input('Enter the new name: ').strip()
+                a[new_c_name] = a.pop(old_c_name)
+                print(f'"{old_c_name}" renamed to "{new_c_name}".')
+
+            old_c_name = input('Enter the category you want to rename or 0 to exit: ').strip()
+
+    def reorganize_priorities(a):
+        current_priorities = list(a.values())
+        print(a)
+        category_name = input('\nEnter the category of which you would like to change priority or 0 to exit: ')
+        
+        while category_name != '0':
+            if category_name not in a:
+                print('Category not found.')
+            else:
+                try:
+                    new_priority = int(input('Enter the new priority (1 being highest priority, higher number = lower priority): '))
+                    if new_priority in current_priorities:
+                        print('Priority already in use, reassigning priorities.'
+                              'Please wait...')
+                        reassign_priorities(a)
+                        current_priorities = list(a.values())
+                        print(a)
+                    elif new_priority == 0:
+                        return
+                    else:
+                        a[category_name] = new_priority
+                        current_priorities = list(a.values())
+                        print(f'{category_name} has been assigned the priority {new_priority}\n')
+                        print(a)
+                except ValueError:
+                    print('Invalid input, please enter an integer (0 to exit)')
+
+            category_name = input('\n Enter the category of which you would like to change priority or 0 to exit: ')
                 
 def reassign_priorities(category_prioritys, new_priority, category_name):
     sorted_categories = sorted(category_priorities, key=category_priorities.get)
 
     for priority in sorted_categories:
         if category_priority[priority] >= new_priority:
-            category_priority[priority] += 1
-        
-    category_priorities(category_name) = new_priority
-    print(f'{category_name} has been assigned priority {new_priority}')
-    print('/nUpdated Categories:')
-    for categories in category_priorities.items():
-        print(f'{categories}: {priority}')
+            category_priority[priority] +=P
