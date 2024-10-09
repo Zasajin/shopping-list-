@@ -61,13 +61,13 @@ def adjust_categories():
     adjust_choice = Input('Enter the number of your desired action: ')
 
     if adjust_choice == 1:
-        rename_categories(category_priorities)
+        rename_categories(a)
     elif adjust_choice == 2:
-        reorganize_priorities(category_priorities)
+        reorganize_priorities(a)
     elif adjust_choice == 3:
-        add_category(category_priorities)
+        add_category(a)
     elif adjust_choice == 4:
-        delete_category(category_priorities)
+        delete_category(a)
     else:
         print('Invalid input, please enter one of the given numbers.')
 
@@ -95,14 +95,15 @@ def adjust_categories():
             else:
                 try:
                     new_priority = int(input('Enter the new priority (1 being highest priority, higher number = lower priority): '))
-                    if new_priority in current_priorities:
+                    if new_priority == 0:
+                        return
+                    elif new_priority in current_priorities:
                         print('Priority already in use, reassigning priorities.'
                               'Please wait...')
-                        reassign_priorities(a)
+                        reassign_priorities(a, new_priority)
                         current_priorities = list(a.values())
+                        print('Priorities have been reassigned.')
                         print(a)
-                    elif new_priority == 0:
-                        return
                     else:
                         a[category_name] = new_priority
                         current_priorities = list(a.values())
@@ -113,9 +114,29 @@ def adjust_categories():
 
             category_name = input('\n Enter the category of which you would like to change priority or 0 to exit: ')
                 
-def reassign_priorities(category_prioritys, new_priority, category_name):
-    sorted_categories = sorted(category_priorities, key=category_priorities.get)
+    def reassign_priorities(a, new_priority):
 
-    for priority in sorted_categories:
-        if category_priority[priority] >= new_priority:
-            category_priority[priority] +=P
+        for category, priority in a.items():
+            if priority >= new_priority:
+                a[category] += 1
+
+    def add_category(a):
+        print('Current categories: ', list(a)) #printing the whole dicitonary, to also show priorities for more comfort when adding a new category + priority
+        new_category = input('Enter the name of the category you wish to add (or 0 to exit): ')
+
+        while new_category != '0':
+            if new_category in a:
+                print('Category already in the list.')
+            else:
+                try:
+                    new_priority = int(input('Please assign a priority (1 being the highest): '))
+                    a[new_category] = new_priority
+                    if new_priority in a.values():
+                        print('Priority value already used, reassigning priorities...')
+                        reassign_priorities(a, new_priority)
+                        print('Priorities reassigned')
+                        print(a)
+                except ValueError:
+                    print('Invalid input, please enter a positive integer.')
+
+            new_category = input('Enter the name of the category you wish to add (or 0 to exit): ')                   
