@@ -36,13 +36,13 @@ def main_menu():
 
         choice = input('Please enter you choice: ')
 
-        if choice == 1:
+        if choice == '1':
             add_item()
             break
-        elif choice == 2:
+        elif choice == '2':
             adjust_categories()
             break
-        elif choice == 3:
+        elif choice == '3':
             show_list()
             break
         else:
@@ -51,6 +51,7 @@ def main_menu():
 
 def adjust_categories():
 
+    a = {category_priorities}
     print(list(f'{category_priorities}'))
     print('Please select what you want to do:'
               '1. Rename categories'
@@ -58,15 +59,15 @@ def adjust_categories():
               '3. Add category'
               '4. Delete category')
         
-    adjust_choice = Input('Enter the number of your desired action: ')
+    adjust_choice = input('Enter the number of your desired action: ')
 
-    if adjust_choice == 1:
+    if adjust_choice == '1':
         rename_categories(a)
-    elif adjust_choice == 2:
+    elif adjust_choice == '2':
         reorganize_priorities(a)
-    elif adjust_choice == 3:
+    elif adjust_choice == '3':
         add_category(a)
-    elif adjust_choice == 4:
+    elif adjust_choice == '4':
         delete_category(a)
     else:
         print('Invalid input, please enter one of the given numbers.')
@@ -139,4 +140,18 @@ def adjust_categories():
                 except ValueError:
                     print('Invalid input, please enter a positive integer.')
 
-            new_category = input('Enter the name of the category you wish to add (or 0 to exit): ')                   
+            new_category = input('Enter the name of the category you wish to add (or 0 to exit): ')
+
+    def delete_category(a):
+        print(a)
+        choice = input('Enter the category you wish to remove (or 0 to exit): ')
+
+        while choice != '0':
+            if choice in a:
+                a.pop(choice)
+                print(f'{choice} has been removed from your categorys')
+                print(a)
+            else:
+                print('Category not found, please enter an existing category to remove.')
+
+            choice = input('Enter the category you wish to remove (or 0 to exit): ')
