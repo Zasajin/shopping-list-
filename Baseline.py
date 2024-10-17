@@ -21,43 +21,41 @@ category_priorities = {
 }
 
     
-grocery_items = [
-    {}
-]
+grocery_items = []
 
 def main_menu():
 
     while True:
 
         print('Welcome! Please choose an option'
-              '1. Add item to list'
-              '2. Adjust Categories'
-              '3. Show List')
+              '\n1. Add item to list'
+              '\n2. Adjust Categories'
+              '\n3. Show List')
 
         choice = input('Please enter you choice: ')
 
         if choice == '1':
-            add_item()
+            add_item(grocery_items)
             break
         elif choice == '2':
-            adjust_categories()
+            adjust_categories(category_priorities)
             break
         elif choice == '3':
-            show_list()
+            sort_list(grocery_items)
+            print(grocery_items)
             break
         else:
             print('Invalid input, please enter one of the given numbers')
 
 
-def adjust_categories():
+def adjust_categories(a):
 
-    a = {category_priorities}
-    print(list(f'{category_priorities}'))
+    print(a)
     print('Please select what you want to do:'
-              '1. Rename categories'
-              '2. Reorganize priorities'
-              '3. Add category'
-              '4. Delete category')
+              '\n1. Rename categories'
+              '\n2. Reorganize priorities'
+              '\n3. Add category'
+              '\n4. Delete category')
         
     adjust_choice = input('Enter the number of your desired action: ')
 
@@ -122,7 +120,7 @@ def adjust_categories():
                 a[category] += 1
 
     def add_category(a):
-        print('Current categories: ', list(a)) #printing the whole dicitonary, to also show priorities for more comfort when adding a new category + priority
+        print('Current categories: ', list(a))
         new_category = input('Enter the name of the category you wish to add (or 0 to exit): ')
 
         while new_category != '0':
@@ -149,9 +147,29 @@ def adjust_categories():
         while choice != '0':
             if choice in a:
                 a.pop(choice)
-                print(f'{choice} has been removed from your categorys')
+                print(f'{choice} has been removed from your categories')
                 print(a)
             else:
                 print('Category not found, please enter an existing category to remove.')
 
             choice = input('Enter the category you wish to remove (or 0 to exit): ')
+
+def add_item(a):
+    print(category_priorities)
+    new_item = input('Enter an item you wish to add to your shopping list (or 0 to return to the main menu) ')
+
+    while new_item != '0':
+        category = input('Enter a category from the above you wish to assign the item to (or 0 to exit): ')
+        while category != '0':
+            if category not in category_priorities:
+                print('Category not found, please enter a category of the above list')
+            else:
+                grocery_items.append((new_item, category))
+                break
+        new_item = input('Enter an item you wish to add to your shopping list (or 0 to return to the main menu) ')
+    
+    print('Your shopping list, right now: ')
+    print(grocery_items)
+        
+def sort_list(a):
+	a.sort(key=lambda item: (category_priorities[item[1]], item[0]))
